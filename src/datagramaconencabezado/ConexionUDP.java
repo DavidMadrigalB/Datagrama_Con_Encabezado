@@ -16,12 +16,10 @@ public class ConexionUDP {
     private InetAddress destino;
     private int tam;
     private DatagramSocket cliente;
-    private int tam_no_paquete;
     
     public ConexionUDP() {
         puerto= 4000;
         direccion= "localhost";
-        tam_no_paquete= 4;
     }
     
     public void getDestino() throws Exception {
@@ -40,12 +38,10 @@ public class ConexionUDP {
         tam= 10;
         int i= 0;
         byte[] b= mensaje.getBytes();
-        String paquete;
         int paquetes= (int) (b.length/tam); // Truena con cero?
         getDestino();
         byte[] bytes_mensaje_paquete;
         if(b.length > tam) {
-            byte[] b_eco= new byte[b.length];
             for(i= 0; i < paquetes; i++) {
                 bytes_mensaje_paquete= Arrays.copyOfRange(b, i*tam, ((i*tam)+(tam)));
                 bytes_mensaje_paquete= construirPaqueteConMetadata(i, bytes_mensaje_paquete);
