@@ -11,6 +11,7 @@ import java.net.DatagramSocket;
 public class Servidor {
     private int puerto;
     private DatagramSocket servidor;
+    private int tamanio_max_bits= 65535;
     
     public Servidor() {
         puerto= 4000;
@@ -26,7 +27,7 @@ public class Servidor {
     }
     
     public String recibirMensaje() throws Exception {
-        byte[] b= new byte[65535];
+        byte[] b= new byte[tamanio_max_bits];
         DatagramPacket datagrama= new DatagramPacket(b, b.length);
         servidor.receive(datagrama);
         return new String(datagrama.getData(), 0, datagrama.getLength());

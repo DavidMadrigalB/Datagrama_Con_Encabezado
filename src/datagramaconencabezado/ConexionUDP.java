@@ -11,8 +11,8 @@ import java.util.Arrays;
  * @author David Arturo Oaxaca Pérez
  */
 public class ConexionUDP {
-    private int puerto;
-    private String direccion; 
+    private final int puerto;
+    private final String direccion; 
     private InetAddress destino;
     private int tam;
     private DatagramSocket cliente;
@@ -67,6 +67,11 @@ public class ConexionUDP {
             System.out.println("Enviando fragmento: " + (i+1) + " de " + (paquetes+1) + 
                     "\n desde " + (i * tam) + " hasta " + ((i * tam) + tam));
         }
+        Thread.sleep(500);
+        mensaje= "salir";
+        bytes_mensaje_paquete= mensaje.getBytes();
+        DatagramPacket datagrama= new DatagramPacket(bytes_mensaje_paquete, bytes_mensaje_paquete.length, destino, puerto);
+        cliente.send(datagrama);
     }
     
     private byte[] construirPaqueteConMetadata(int no_paquete, byte[] bytes_mensaje_paquete) {
